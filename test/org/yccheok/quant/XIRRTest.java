@@ -121,7 +121,7 @@ public class XIRRTest {
         };
         
         guess = 0.1;
-        expResult = 0;
+        expResult = 0.0970640616333018;
         result = XIRR.Newtons_method(payments, days, guess);
         assertEquals(expResult, result, 0.0);        
     }
