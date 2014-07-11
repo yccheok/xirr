@@ -12,7 +12,55 @@ Ported from http://stackoverflow.com/a/5185144/72437 C# code.
 package org.yccheok.quant;
 
 public class XIRR {
+    
+    public static class Bracket 
+    {
+        public final double left;
+        public final double right;
+        
+        public Bracket(double left, double right) 
+        {
+            this.left = left;
+            this.right = right;
+        }
+    }
+    
     public static final double tol = 0.001;
+    
+    public static Bracket find_bracket(double[] payments, double[] days, double guess)
+    {
+        final int max_iteration = 108;
+        final double step = 0.5;
+        
+        double left = guess;
+        double right = guess;
+        
+        double resl = total_f_xirr(payments, days, left);
+        
+        double resr = resl;
+        int iteration = 0;
+        
+        while ((resl * resr) > 0 && iteration++ < max_iteration)
+        {
+            left = left - step;
+            resl = total_f_xirr(payments, days, left);
+            
+            if ((resl * resr) <= 0)
+            {
+                break;
+            }
+            
+            right = right + step;
+            resr = total_f_xirr(payments, days, right);
+        }
+        
+        if ((resl * resr) <= 0)
+        {
+            return new Bracket(left, right);
+        }
+        
+        return new Bracket(guess, guess);
+    }
     
     public static double composeFunctions(double f1, double f2)
     {
