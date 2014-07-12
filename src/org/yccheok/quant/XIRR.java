@@ -25,9 +25,9 @@ public class XIRR {
         }
     }
     
-    public static final double tol = 1E-3;
+    public static final double tol = 1E-8;
     
-    public static final double epsilon = 1E-10;
+    public static final double epsilon = 1E-12;
     
     public static Bracket find_bracket(double[] payments, double[] days, double guess)
     {
@@ -117,7 +117,7 @@ public class XIRR {
         final int max_iteration = 216;
         int iteration = 0;
         
-        while (iteration++ < max_iteration)
+        do
         {
             x1 = x0 - total_f_xirr(payments, days, x0) / total_df_xirr(payments, days, x0);
             err = Math.abs(x1 - x0);
@@ -128,7 +128,8 @@ public class XIRR {
                 return x0;
             }
         }
-
+        while (iteration++ < max_iteration);
+                
         return Double.NaN;
     }
     
@@ -148,7 +149,7 @@ public class XIRR {
         int iteration = 0;
         double c = 0;
 
-        while (iteration++ < max_iteration)
+        do
         {
             c = (left + right) / 2;
             
@@ -170,6 +171,7 @@ public class XIRR {
                 right = c;
             }
         }
+        while (iteration++ < max_iteration);
         
         return c;
     }

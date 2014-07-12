@@ -55,7 +55,7 @@ public class XIRRTest {
         double[] payments = { -6800, 1000, 2000, 4000 };
         double[] days = { 1, 8, 16, 25 };
         double guess = 0.1;
-        double expResult =  0.7467420788881806;
+        double expResult =  0.7467420789383913;
         double result = XIRR.Newtons_method(payments, days, guess);
         assertEquals(expResult, result, 0.0);
         
@@ -120,9 +120,8 @@ public class XIRRTest {
         };
         
         guess = 0.1;
-        expResult = 0.0970640616333018;
-        result = XIRR.Newtons_method(payments, days, guess);
-        assertEquals(expResult, result, 0.0);        
+        result = XIRR.Newtons_method(payments, days, guess);        
+        assertEquals(true, Double.isNaN(result));
     }
 
     public static long getDateDiff(Calendar calendar1, Calendar calendar2) {
@@ -173,12 +172,12 @@ public class XIRRTest {
         assertEquals(expResult, result, 0.0);  
 
         guess = -1.0;
-        expResult = 18087.350239959072;
+        expResult = 25733.817447044697;
         result = XIRR.total_f_xirr(payments, days, guess);
         assertEquals(expResult, result, 0.0);
         
         guess = -1.1;
-        expResult = 18087.350239959072;
+        expResult = 25733.817447044697;
         result = XIRR.total_f_xirr(payments, days, guess);
         assertEquals(expResult, result, 0.0);        
     }
@@ -238,7 +237,7 @@ public class XIRRTest {
         };
 
         double guess = 0.1;        
-        double expResult = -0.987965488433838;
+        double expResult = -0.9879661012440919;
         double result = XIRR.Bisection_method(payments, days, guess);
         assertEquals(expResult, result, 0.0);
     }
