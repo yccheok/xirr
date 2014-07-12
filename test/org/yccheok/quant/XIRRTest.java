@@ -138,4 +138,18 @@ public class XIRRTest {
         long diffInMillies = Math.abs(date2.getTime() - date1.getTime());
         return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
+
+    /**
+     * Test of total_f_xirr method, of class XIRR.
+     */
+    @Test
+    public void testTotal_f_xirr() {
+        System.out.println("total_f_xirr");
+        double[] payments = { -6800, 1000, 2000, 4000 };
+        double[] days = { 1, 8, 16, 25 };
+        double guess = 0.7;
+        double expResult =  9.578124885343641;
+        double result = XIRR.total_f_xirr(payments, days, 0.7);
+        assertEquals(expResult, result, 0.0);
+    }
 }
