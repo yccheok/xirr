@@ -149,7 +149,12 @@ public class XIRRTest {
         double[] days = { 1, 8, 16, 25 };
         double guess = 0.7;
         double expResult =  9.578124885343641;
-        double result = XIRR.total_f_xirr(payments, days, 0.7);
+        double result = XIRR.total_f_xirr(payments, days, guess);
         assertEquals(expResult, result, 0.0);
+        
+        guess = 0;
+        expResult =  200;
+        result = XIRR.total_f_xirr(payments, days, guess);
+        assertEquals(expResult, result, 0.0);        
     }
 }
