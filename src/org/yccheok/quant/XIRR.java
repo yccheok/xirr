@@ -111,16 +111,14 @@ public class XIRR {
     public static double Newtons_method(double[] payments, double[] days, double guess)
     {
         double x0 = guess;
-        double x1;
-        double err = Double.MAX_VALUE;
 
         final int max_iteration = 216;
         int iteration = 0;
         
         do
         {
-            x1 = x0 - total_f_xirr(payments, days, x0) / total_df_xirr(payments, days, x0);
-            err = Math.abs(x1 - x0);
+            double x1 = x0 - total_f_xirr(payments, days, x0) / total_df_xirr(payments, days, x0);
+            double err = Math.abs(x1 - x0);
             x0 = x1;
             
             if (err <= tol)
