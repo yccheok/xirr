@@ -147,21 +147,12 @@ public class XIRRTest {
         System.out.println("total_f_xirr");
         double[] payments = { -6800, 1000, 2000, 4000 };
         double[] days = { 1, 8, 16, 25 };
+        
         double guess = 0.7;
         double expResult =  9.578124885343641;
         double result = XIRR.total_f_xirr(payments, days, guess);
         assertEquals(expResult, result, 0.0);
         
-        guess = 0;
-        expResult =  200;
-        result = XIRR.total_f_xirr(payments, days, guess);
-        assertEquals(expResult, result, 0.0);        
-        
-        guess = -0.7;
-        expResult =   654.3372321995989;
-        result = XIRR.total_f_xirr(payments, days, guess);
-        assertEquals(expResult, result, 0.0);  
-
         guess = 1.0;
         expResult = -47.58761378100462;
         result = XIRR.total_f_xirr(payments, days, guess);
@@ -169,6 +160,26 @@ public class XIRRTest {
         
         guess = 1.1;
         expResult = -64.64525368782142;
+        result = XIRR.total_f_xirr(payments, days, guess);
+        assertEquals(expResult, result, 0.0);  
+        
+        guess = 0;
+        expResult =  200;
+        result = XIRR.total_f_xirr(payments, days, guess);
+        assertEquals(expResult, result, 0.0);        
+                
+        guess = -0.7;
+        expResult =   654.3372321995989;
+        result = XIRR.total_f_xirr(payments, days, guess);
+        assertEquals(expResult, result, 0.0);  
+
+        guess = -1.0;
+        expResult = 18087.350239959072;
+        result = XIRR.total_f_xirr(payments, days, guess);
+        assertEquals(expResult, result, 0.0);
+        
+        guess = -1.1;
+        expResult = 18087.350239959072;
         result = XIRR.total_f_xirr(payments, days, guess);
         assertEquals(expResult, result, 0.0);        
     }

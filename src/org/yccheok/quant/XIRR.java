@@ -27,6 +27,8 @@ public class XIRR {
     
     public static final double tol = 0.001;
     
+    public static final double epsilon = 1E-12;
+    
     public static Bracket find_bracket(double[] payments, double[] days, double guess)
     {
         final int max_iteration = 108;
@@ -69,6 +71,9 @@ public class XIRR {
     
     public static double f_xirr(double p, double dt, double dt0, double x)
     {
+        if (x <= -1)
+            x = -1 + 1E-10; // Very funky ... Better check what an IRR <= -100% means    
+        
         return p * Math.pow((1.0 + x), ((dt0 - dt) / 365.0));
     }
     
