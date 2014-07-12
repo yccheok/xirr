@@ -74,7 +74,6 @@ public class XIRRTest {
         
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(0);
-        System.out.println(calendar);
         
         Calendar calendar0 = Calendar.getInstance();
         Calendar calendar1 = Calendar.getInstance();
@@ -182,5 +181,65 @@ public class XIRRTest {
         expResult = 18087.350239959072;
         result = XIRR.total_f_xirr(payments, days, guess);
         assertEquals(expResult, result, 0.0);        
+    }
+
+    /**
+     * Test of Bisection_method method, of class XIRR.
+     */
+    @Test
+    public void testBisection_method() {
+        System.out.println("Bisection_method");
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(0);
+        
+        Calendar calendar0 = Calendar.getInstance();
+        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+        Calendar calendar3 = Calendar.getInstance();
+        Calendar calendar4 = Calendar.getInstance();
+        Calendar calendar5 = Calendar.getInstance();
+        Calendar calendar6 = Calendar.getInstance();
+        Calendar calendar7 = Calendar.getInstance();
+        Calendar calendar8 = Calendar.getInstance();
+
+        calendar0.set(2012, 5, 1, 0, 0, 0);
+        calendar1.set(2012, 6, 23, 0, 0, 0);
+        calendar2.set(2012, 10, 7, 0, 0, 0);
+        calendar3.set(2012, 10, 30, 0, 0, 0);
+        calendar4.set(2012, 11, 1, 0, 0, 0);
+        calendar5.set(2013, 0, 16, 0, 0, 0);
+        calendar6.set(2013, 1, 8, 0, 0, 0);
+        calendar7.set(2013, 2, 26, 0, 0, 0);
+        calendar8.set(2013, 2, 31, 0, 0, 0);
+        
+        double[] payments = new double[] {
+            0.01, 
+            3042626.18,
+            -491356.62,
+            631579.92,
+            19769.5,
+            1551771.47,
+            -304595,
+            3880609.64,
+            -4331949.61
+        };
+        
+        double[] days = new double[] {
+            (double)getDateDiff(calendar0, calendar),
+            (double)getDateDiff(calendar1, calendar),
+            (double)getDateDiff(calendar2, calendar),
+            (double)getDateDiff(calendar3, calendar),
+            (double)getDateDiff(calendar4, calendar),
+            (double)getDateDiff(calendar5, calendar),
+            (double)getDateDiff(calendar6, calendar),
+            (double)getDateDiff(calendar7, calendar),
+            (double)getDateDiff(calendar8, calendar),
+        };
+
+        double guess = 0.1;        
+        double expResult = -0.987965488433838;
+        double result = XIRR.Bisection_method(payments, days, guess);
+        assertEquals(expResult, result, 0.0);
     }
 }

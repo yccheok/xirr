@@ -61,7 +61,7 @@ public class XIRR {
             return new Bracket(left, right);
         }
         
-        return new Bracket(guess, guess);
+        return null;
     }
     
     public static double composeFunctions(double f1, double f2)
@@ -114,16 +114,66 @@ public class XIRR {
         double x1;
         double err = Double.MAX_VALUE;
 
-        while (err > tol)
+        final int max_iteration = 216;
+        int iteration = 0;
+        
+        while (iteration++ < max_iteration)
         {
             x1 = x0 - total_f_xirr(payments, days, x0) / total_df_xirr(payments, days, x0);
             err = Math.abs(x1 - x0);
             x0 = x1;
+            
+            if (err <= tol)
+            {
+                return x0;
+            }
         }
 
-        return x0;
+        return Double.NaN;
     }
     
+    public static double Bisection_method(double[] payments, double[] days, double guess)
+    {
+        Bracket bracket = find_bracket(payments, days, guess);
+
+        if (bracket == null)
+        {
+            return Double.NaN;
+        }
+        
+        double left = bracket.left;
+        double right = bracket.right;
+        
+        final int max_iteration = 216;
+        int iteration = 0;
+        double c = 0;
+
+        while (iteration++ < max_iteration)
+        {
+            c = (left + right) / 2;
+            
+            double resc = total_f_xirr(payments, days, c);
+            
+            if (Math.abs(resc) <= epsilon || ((right - left) / 2.0) < tol)
+            {
+                break;
+            }
+            
+            double resl = total_f_xirr(payments, days, left);
+            
+            if ((resc * resl) > 0)
+            {
+                left = c;
+            }
+            else
+            {
+                right = c;
+            }
+        }
+        
+        return c;
+    }
+        
     public static final void main(String[] args)
     {
         double[] payments = {-6800,1000,2000,4000}; // payments
