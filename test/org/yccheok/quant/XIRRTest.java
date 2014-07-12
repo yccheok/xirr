@@ -160,6 +160,11 @@ public class XIRRTest {
         guess = -0.7;
         expResult =   654.3372321995989;
         result = XIRR.total_f_xirr(payments, days, guess);
-        assertEquals(expResult, result, 0.0);           
+        assertEquals(expResult, result, 0.0);  
+        
+        guess = 1.1;
+        expResult =  9.578124885343641;
+        result = XIRR.total_f_xirr(payments, days, guess);
+        assertEquals(expResult, result, 0.0);        
     }
 }
